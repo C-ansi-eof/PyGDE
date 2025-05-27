@@ -1,0 +1,91 @@
+No se consideran los límites de reactiva.
+
+No se consideran los límites de tensiones.
+
+
+
+DATOS DE LOS NUDOS: 
+
+Número total de nudos:   5
+
+
+   nombre  tipo     Umod      Uarg      Pgen     Bcomp    Pcarga    Gcarga    Qcarga    Bcarga      Qgen    Q/Umax    Q/Umin 
+
+   Nudo1    Ua    1.0000    0.0000    0.0000    0.0000    0.0000    0.0000    0.0000    0.0000    0.0000    0.0000    0.0000
+   Nudo2    PQ    1.0000    0.0000    0.0000    0.0000    8.0000    0.0000    2.8000    0.0000    0.0000    1.1500    0.8500
+   Nudo3    PU    1.0500    0.0000    6.9000    0.0000    0.8000    0.0000    0.4000    0.0000    0.0000    0.0000    0.0000
+   Nudo4    PQ    1.0000    0.0000    0.0000    0.0000    0.0000    0.0000    0.0000    0.0000    0.0000    1.1500    0.8500
+   Nudo5    PQ    1.0000    0.0000    0.0000    0.0000    0.0000    0.0000    0.0000    0.0000    0.0000    1.1500    0.8500
+
+
+DATOS DE LAS LINEAS: 
+
+Número total de líneas:   3
+
+
+  nombre     nudo1     nudo2         R         X         G         B        R0        X0        G0        B0 
+
+  Linea1     Nudo2     Nudo4      0.0090    0.1000    0.0000    1.7200    0.0000    0.0000    0.0000    0.0000
+  Linea2     Nudo2     Nudo5      0.0045    0.0500    0.0000    0.8800    0.0000    0.0000    0.0000    0.0000
+  Linea3     Nudo4     Nudo5      0.0022    0.0250    0.0000    0.4400    0.0000    0.0000    0.0000    0.0000
+
+
+DATOS DE LOS ACOPLAMIENTOS: 
+
+Pares de líneas acopladas:   0
+
+
+DATOS DE LOS TRANSFORMADORES: 
+
+Número total de transformadores:   2
+
+
+  nombre  primario  secundario       Rcc       Xcc        G0        B0        rt    alfa   conexp    Rpt       Xpt    conexs    Rps       Xps 
+
+  Trafo1     Nudo1      Nudo5      0.0015    0.0200    0.0000    0.0000    1.0000      0      2    0.0000    0.0000      2    0.0000    0.0000
+  Trafo2     Nudo3      Nudo4      0.0008    0.0100    0.0000    0.0000    1.0000      0      2    0.0000    0.0000      2    0.0000    0.0000
+
+
+maxiter  tolerancia 
+
+   100     0.0000010
+
+
+ FIN DEL LISTADO DE LOS DATOS DE ENTRADA DEL FLUJO DE CARGAS. 
+
+
+
+
+
+              ---------- RESULTADOS DEL FLUJO DE CARGAS ----------
+
+ Nudo     Limite  Tensión  Ángulo(º)       Pgen       Qgen     Pcarga     Qcarga      Qcomp
+-------------------------------------------------------------------------------------------
+
+   Nudo1   ....    1.0000     0.0000     2.2615     1.1769     0.0000     0.0000     0.0000 
+   Nudo3   ....    1.0500     4.4731     6.9000     3.4867     0.8000     0.4000     0.0000 
+   Nudo2   ....    0.8320   -19.7322     0.0000     0.0000     8.0000     2.8000     0.0000 
+   Nudo4   ....    1.0178     1.3252    -0.0000     0.0000     0.0000     0.0000     0.0000 
+   Nudo5   ....    0.9740    -2.5575    -0.0000     0.0000     0.0000     0.0000     0.0000 
+
+	Pérdidas de activa= 0.36145 / Pérdidas de reactiva= 1.46353
+
+
+
+            ---------- FLUJOS DE POTENCIAS POR LAS LINEAS ----------
+
+   Línea    Nudo-A     Nudo-B       P(A->B)    Q(A->B)    P(B->A)    Q(B->A)
+----------------------------------------------------------------------------
+
+  Linea1      Nudo2      Nudo4     -3.1058    -1.2957     3.2375     1.2736 
+  Linea2      Nudo2      Nudo5     -4.8942    -1.5043     5.0593     2.6161 
+  Linea3      Nudo4      Nudo5      2.8307     1.3891    -2.8076    -1.5692 
+
+
+            ---------- FLUJOS DE POTENCIAS POR LOS TRAFOS ----------
+
+   Trafo   Primario Secundario     P(Prim.)   Q(Prim.)  P(Secun.)  Q(Secun.)
+----------------------------------------------------------------------------
+
+  Trafo1      Nudo1      Nudo5      2.2615     1.1769    -2.2517    -1.0469 
+  Trafo2      Nudo3      Nudo4      6.1000     3.0867    -6.0682    -2.6627 
