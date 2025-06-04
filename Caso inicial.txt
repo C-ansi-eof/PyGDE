@@ -1,0 +1,270 @@
+PROGRAMA FCYCC.
+Caso inicial
+LA RED DE ESTE EJEMPLO TIENE cinco NUDOS, tres LINEAS y dos TRANSFORMADORES.
+Sbase=100MVA, Vbase=15kV en nudos 1 y 3, 245kV en nudos 2, 4, 5
+
+Las lineas 1,2 y 3 tienen un l’mite de potencia de 12 p.u.
+El trafo1 tienen un l’mite de potencia de 6 p.u. y el trafo2 tiene un l’mite de 10 p.u.
+
+Datos de nudos
+nombre tipo Umod   Uarg  Pgen  Bcomp  Pcarga Pca(U) Exp(P) Qcarg Qca(U) Exp(Q) Qgen  Qmax   Qmin
+
+@
+
+Nudos: 5
+
+Nudo1 Ua  1.00     0.0    0.0    0.0    0.0    0.0    0.0    0.0   0.0    0.0    0.0   0.0   0.0
+Nudo2 PQ  1.00     0.0    0.0    0.0    8.00   0.0    0.0    2.8   0.0    0.0    0.0  1.15  0.85
+Nudo3 PU  1.05     0.0    5.2    0.0    0.8    0.0    0.0    0.4   0.0    0.0    0.0   0.0   0.0
+Nudo4 PQ  1.00     0.0    0.0    0.0    0.0    0.0    0.0    0.0   0.0    0.0    0.0  1.15  0.85
+Nudo5 PQ  1.00     0.0    0.0    0.0    0.0    0.0    0.0    0.0   0.0    0.0    0.0  1.15  0.85
+
+
+Líneas: 3
+
+Linea1   Nudo2   Nudo4    0.009   0.10   0.0  1.72   0.0  0.0  0.0  0.0
+Linea2   Nudo2   Nudo5    0.0045  0.05   0.0  0.88   0.0  0.0  0.0  0.0
+Linea3   Nudo4   Nudo5    0.00225 0.025  0.0  0.44   0.0  0.0  0.0  0.0
+
+Acoplamientos: 0
+
+Trafos: 2
+
+Trafo1   Nudo1  Nudo5   0.00150   0.02   0    0    1    0    2   0   0   2   0   0
+Trafo2   Nudo3  Nudo4   0.00075   0.01   0    0    1    0    2   0   0   2   0   0
+
+100  .000001
+
+Datos adicionales, para el análisis de cortocircuitos.
+No se leen si no se hace an‡lisis de cortocircuito
+
+@
+
+Generadores: 2
+Gen1  Nudo1    0.8   0.8  0.0   0.125   0.0   0.125   0.0  0.0125   1  0.0   0.0
+Gen2  Nudo3    0.2   0.2  0.0   0.500   0.0   0.500   0.0  0.0500   1  0.0   0.0
+Motores: 0
+Mot1  Nudo2    0.8   0.8  0.0   0.2   0.0   0.2   0.0  0.02   1  0.0   0.0
+
+Fin
+
+*****************************************************************************
+
+Las líneas que preceden a los asteriscos son un ejemplo de fichero de entrada de datos para el programa de an lisis de flujo de cargas y de cortocircuitos contenido en el fichero: fcycc.m
+
+Se añade a continuación información adicional, que puede servir de ayuda para comprender cómo debe estar estructurado dicho fichero de entrada de datos.
+
+En la explicación que sigue, se indica si el dato se lee como:
+
+  	Entero (%d), decimal (%f) o alfabético (%s)
+
+Explicación del fichero de entrada de datos:
+
+La primera aparición en el fichero del símbolo @ marca la separación de los comentarios y los datos. Antes de los datos, pueden incluirse comentarios informativos del caso.
+
+A partir del símbolo @, se incluyen los datos de entrada propiamente dichos, de acuerdo con el orden siguiente:
+
+
+1.- Datos de los nudos de la red.
+
+El comienzo de estos datos viene dado por la clave: "Nudos: ", seguida del número de nudos de la red:
+
+	Nudos: nudos
+
+	nudos=número de nudos de la red.-(%d)
+
+A continuación se incluyen quince datos por cada nudo:
+
+	nn  tipoi  A(1)....A(13)
+
+	nn=Nombre del nudo.-(%s). (Hasta ocho caracteres)
+	tipoi= Tipo inicial del nudo: PU,PQ o Ua (Balance).-(%s)
+	A(1)=Tensión deseada en el nudo (Ua y PU), o inicial (PQ).-(%f) 	
+	A(2)=Argumento de la tensión (Ua), o inicial (PU y PQ).-(%f)
+	A(3) Potencia activa generada en el nudo.-(%f)
+	A(4)=Susceptancia de compensación. (Condensador(+), o bobina(-)).-(%f)
+	A(5)= Potencia activa demandada, independiente de la tensión.-(%f)
+	A(6)= Potencia activa demandada, dependiente de la tensión.-(%f)
+	A(7)=Exponente para la variación de la demanda con la tensión.
+		La potencia activa total demandada en el nudo viene dada por:
+		Pd=A(5)+A(6)*U^A(7). (U=tensión del nudo)
+		En esta versi¢n, si A(6) no es nulo, A(7) debe valer 2.
+	A(8)= Potencia reactiva demandada, independiente de la tensión.-(%f)
+	A(9)= Potencia reactiva demandada, dependiente de la tensión.-(%f)
+	A(10)=Exponente para la variación de la demanda con la tensión.
+		La potencia reactiva total demandada en el nudo viene dada por:
+		Qd=A(8)+A(9)*U^A(10). (U=tensión del nudo)
+		En esta versión, si A(9) no es nulo, A(10) debe valer 2.
+	A(11)=Potencia reactiva generada.(nudos PQ con generador)
+	A(12)=Potencia reactiva generada máxima, (PU), o tensión máxima, (PQ)
+	A(13)=Potencia reactiva generada mínima, (PU), o tensión mínima, ( PQ)
+
+
+
+
+
+
+2.- Datos de las líneas de la red.
+
+ El comienzo de estos datos viene dado por la clave: "Líneas: ", seguida del número de líneas de la red:
+
+	Líneas: lineas
+
+	lineas=número de líneas de la red.-(%d)
+
+A continuación se incluyen once datos por cada línea:
+
+	nl  nl1  nl2  dlin(1)....dlin(8)
+
+	nl=Nombre identificador de la línea.-(%s). (Hasta ocho caracteres)
+	nl1=Nombre del nudo inicial.-(%s). (Hasta ocho caracteres)
+	nl2=Nombre del nudo final.-(%s). (Hasta ocho caracteres)
+	dlin(1)=Resistencia de secuencia directa.-(%f)
+	dlin(2)=Reactancia de secuencia directa.-(%f)
+	dlin(3)=Conductancia de secuencia directa.-(%f)
+	dlin(4)=Susceptancia de secuencia directa.-(%f)
+	dlin(5)=Resistencia de secuencia cero.-(%f)
+	dlin(6)=Reactancia de secuencia cero.-(%f)
+	dlin(7)=Conductancia de secuencia cero.-(%f)
+	dlin(8)=Susceptancia de secuencia cero.-(%f)
+
+
+Después de los datos de las líneas se incluyen datos de los  acoplamientos entre las secuencias cero de grupos de dos líneas.
+Esta versión no admite acoplamientos entre mas de dos líneas.
+El comienzo de estos datos viene dado por la clave: "Acoplamientos: ", seguida del número de grupos de dos líneas acopladas:
+
+	Acoplamientos : nacop
+
+	nacop=número de grupos de dos líneas acopladas.-(%d)
+
+A continuación, por cada grupo, se especifican cuatro datos:
+
+	linacop1  linacop2  acop(1)  acop(2)
+
+	linacop1=Nombre de una de las líneas acopladas.-(%s)
+	linacop2=Nombre de la otra línea.-(%s)
+	acop(1)=Parte real de la impedancia de acoplamiento.-(%f)
+	acop(2)=Parte imaginaria de la impedancia de acoplamiento.-(%f)
+
+
+
+
+
+
+3.- Datos de los transformadores de la red.
+
+ El comienzo de estos datos viene dado por la clave: "Trafos: ", seguida del n£mero de trafos de la red:
+
+	Trafos: trafos
+
+	trafos=número de trafos de la red.-(%d)
+
+A continuación se incluyen quince datos por cada transformador:
+
+	nt  nt1  nt2  dtraf(1).....dtraf(12)
+
+	nt=Nombre identificador del trafo.-(%s). (Hasta ocho caracteres)
+	nt1=Nombre del primario-(%s). (Hasta ocho caracteres)
+		El programa supone las tomas en el primario.
+	nt2=Nombre del secundario.-(%s). (Hasta ocho caracteres)
+	dtraf(1)=Resistencia de cortocircuito.-(%f)
+	dtraf(2)=Reactancia de cortocircuito.-(%f)
+	dtraf(3)=Conductancia de vacio.-(%f)
+	dtraf(4)=Susceptancia de vacio.-(%f)
+	dtraf(5)=Módulo de la relación de transformación.-(%f)
+	dtraf(6)=Argumento de la relación de transformación.-(%f)
+	dtraf(7)=Tipo de conexión del primario (1=Y a tierra, 2=Y, 3=D)
+	dtraf(8)=Resistencia de puesta a tierra del primario. (tipo 1)
+	dtraf(9)=Reactancia de puesta a tierra del primario. (tipo 1)
+	dtraf(10)=Tipo de conexión del secundario (1=Y a tierra, 2=Y, 3=D)
+	dtraf(11)=Resistencia de puesta a tierra del secundario. (tipo 1)
+	dtraf(12)=Reactancia de puesta a tierra del secundario. (tipo 1)
+
+4.- Dos datos finales.
+
+	maxiter  tol
+
+	maxiter=número máximo de iteraciones a realizar.-(%d)
+	tol=tolerancia para la convergencia.-(%f)
+
+
+Para realizar un estudio de cortocircuitos, una vez finalizados los datos del flujo de cargas han de darse los datos específicos de dicho estudio.
+
+ El comienzo de esos datos se marca con una @, ignorándose todo lo que contenga el fichero entre el final de los datos del flujo de cargas y el símbolo @.
+
+Durante el análisis de cortocircuitos, se tiene la opción de ignorar las intensidades previas a la falta. Como tensiones previas se utilizan las del flujo de cargas, multiplicadas por un factor, normalmente igual a la unidad, cuyo valor se solicita durante la ejecución.
+
+
+ Los datos específicos del análisis de cortocircuitos son:
+
+5.- Datos de los generadores de la red.
+
+ El comienzo de estos datos viene dado por la clave: "Generadores: ", seguida del número de generadores de la red:
+
+	Generadores: ngen
+
+	ngen=número de generadores de la red.-(%d)
+
+A continuación se incluyen trece datos por cada generador:
+
+	nng nn dgen(1)....dgen(11)
+
+	nng=Nombre identificador del generador.-(%s). (Hasta ocho caracteres)	
+	nn=Nombre del nudo del generador.-(%s). (Hasta ocho caracteres)
+	dgen(1)=Fracción de la P generada en nn, debida a este generador.-(%f)
+	dgen(2)=Fracción de la Q generada en nn, debida a este generador.-(%f)
+	dgen(3)=Resistencia de secuencia directa.-(%f)
+	dgen(4)=Reactancia de secuencia directa.-(%f). (Normalmente, la X'') 	
+	dgen(5)=Resistencia de secuencia inversa.-(%f)
+	dgen(6)=Reactancia de secuencia inversa.-(%f)
+	dgen(7)=Resistencia de secuencia homopolar.-(%f)
+	dgen(8)=Reactancia de secuencia homopolar.-(%f)
+	dgen(9)=Indicador de si existe conexión a tierra: (1=si,0=no).-(%d)
+	dgen(10)=Resistencia de la impedancia de conexión a tierra.-(%f)
+	dgen(11)=Reactancia de la impedancia de conexión a tierra.-(%f)
+
+
+Después de los datos de los generadores se incluyen los de los motores:
+
+6.- Datos de los motores de la red.
+
+ El comienzo de estos datos viene dado por la clave: "Motores: ", seguida del número de motores de la red:
+
+	Motores: nmot
+
+	nmot=número de motores de la red.-(%d)
+
+A continuación se incluyen trece datos por cada motor:
+
+	nnm nn dmot(1)....dmot(11)
+
+de significado similar al de los generadores:
+
+
+
+
+	nnm=Nombre identificador del motor.-(%s). (Hasta ocho caracteres)
+	nn=Nombre del nudo del motor.-(%s). (Hasta ocho caracteres)
+	dmot(1)=Fracción de la P demandada en nn, debida a este motor.-(%f)
+	dmot(2)=Fracción de la Q demandada en nn, debida a este motor.-(%f)
+	dmot(3)=Resistencia de secuencia directa.-(%f)
+	dmot(4)=Reactancia de secuencia directa.-(%f). (Normalmente, la X'')
+	dmot(5)=Resistencia de secuencia inversa.-(%f)
+	dmot(6)=Reactancia de secuencia inversa.-(%f)
+	dmot(7)=Resistencia de secuencia homopolar.-(%f)
+	dmot(8)=Reactancia de secuencia homopolar.-(%f)
+	dmot(9)=Indicador de si existe conexión a tierra: (1=si,0=no).-(%d)
+	dmot(10)=Resistencia de la impedancia de conexión a tierra.-(%f)
+	dmot(11)=Reactancia de la impedancia de conexión a tierra.-(%f)
+
+Los datos de impedancias de los generadores y de los motores, corresponden a la estrella equivalente.
+
+Las suma de las potencias inyectadas en cada nudo, por los generadores y los motores de ese nudo, puede ser inferior a las potencias totales  inyectadas en el nudo, resultantes del flujo de cargas previo. El programa asigna la diferencia a impedancias de carga.
+
+Los datos terminan con la clave: "Fin"
+
+	Fin
+
+Si no existe algún tipo de elemento, a continuación de la clave correspondiente se incluye un cero.
+
+**********************************************************************
