@@ -5,3 +5,5 @@ En el archivo pyFC.ipynb se encuentra el código para extraer los resultados sel
 - Ejecutar el programa de matlab para el cálculo del flujo de cargas: obtener todos los resultados en archivos de texto.
 - Ubicar los archivos de resultados en la misma carpeta que el jupyter notebook y ejecutarlo (modificando el nombre de los archivos en el bucle si es necesario).
 - Se obtiene el excel con los resultados del flujo de cargas.  
+
+Sources: UPM - ETSII - Departamento de ingeniería eléctrica - 2025
